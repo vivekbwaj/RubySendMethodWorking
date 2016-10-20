@@ -1,0 +1,144 @@
+Automated accessibility testing by integration with HTMLCodeSniffer
+
+Go to the Ruby Installer page at http://rubyinstaller.org/downloads/
+
+Click on the link to download "Ruby 2.3.1 (x64)"
+*Install the version corresponding to your system(x32/x64)
+
+Install it in the default location on your PC (C:\Ruby23)
+- select "Add Ruby executables to your path" and "Associate .rb and .rbw files with this Ruby Installation"
+
+Run "ruby -v" to confirm Ruby is installed correctly
+
+Next step is to install the Ruby DevKit
+Scroll down on the Ruby Installer page and download the Development Kit version
+
+
+Install instructions are at https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
+but they're pretty simple
+- double click on the DevKit file you just downloaded (which will be named something
+      like DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe)
+- it will prompt you for somewhere to unpack itself; pick something like
+"C:\RubyDevKit"
+- once the file has unpacked, bring up a cmd shell
+- cd \RubyDevKit
+- ruby dk.rb init
+- ruby dk.rb install
+
+That should install the Ruby DevKit
+
+
++++++++++++ gemfile +++++++++++++++++++
+
+ gemfile is created using the command "bundle init" then specify all the gem files that a project requires and
+   * if there is an error saying "'bunlle' is not recognized as an internal or external command,
+          operable program or batch file. "
+      then " gem install bundler --source http://rubygems.org "
+
+      then run bundle init
+
+copy paste this in the gemfile
+run bundle install
+
+* for more info. on bundle install refer to README
+source "https://rubygems.org"
+source "https://gems.github.com"
+
+# gem "rails"
+gem "watir-webdriver"
+gem 'cucumber'
+gem 'rspec'
+gem 'rake'
+gem 'page-object'
+gem 'require_all'
+gem 'pry'
+gem 'data_magic'
+gem 'chronic'
+gem 'rails_helper'
+gem 'colorize'
+gem 'cucumber'
+gem 'rspec-expectations'
+gem 'gherkin --platform ruby'
+gem 'selenium'
+gem 'selenium-webdriver'
+
+if there is a certificate error then replace https with http
+
+then manually run "gem install gherkin --platform ruby --source http://rubygems.org"
+
+ALTERNATE WAY TO install gems
+
+- gem install cucumber (this will take a while)
+- gem install rspec-expectations
+- gem install gherkin --platform ruby
+- gem install selenium
+- gem install selenium-webdriver
+
+then run project and for every error you get stating cannot load xyz....
+install those gems manually "gem install xyz"
+###############################################
+
+Install support for colored output on Windows
+- follow instructions on http://qastuffs.blogspot.com.au/2011/02/how-to-install-ansicon-for-cucumber-to.html
+#################################################
+download driver for different browsers and in the hooks.rb file change the path for the driver
+#############################################
+
+Close your cmd shell, open a new one and cd to this directory
+
+Now try it out!
+cucumber features\01Test_Framework.feature -p debug -p Portal
+cucumber features\02Test_Framework.feature -p debug -p Portal
+
+ to run both feature in one go:
+cucumber features -p debug -p Portal
+
+
+
+######## about gemfile ##################################################################################################################################
+
+
+################################################
+http://bundler.io/v1.3/rationale.html
+
+First, you declare these dependencies in a file at the root of your application, called Gemfile
+ This Gemfile says a few things. First, it says that bundler should look for gems declared in the Gemfile at https://rubygems.org. You can declare multiple RubyGems sources, and bundler will look for gems in the order you declared the sources.
+
+Next, you declare a few dependencies:
+
+    on version 3.0.0.rc of rails
+    on any version of rack-cache
+    on a version of nokogiri that is >= 1.4.2 but < 1.5.0
+
+After declaring your first set of dependencies, you tell bundler to go get them: 
+Bundler will connect to rubygems.org (and any other sources that you declared), and find a list of all of the required gems that meet the requirements you specified. Because all of the gems in your Gemfile have dependencies of their own (and some of those have their own dependencies), running bundle install on the Gemfile above will install quite a few gems. 
+
+If any of the needed gems are already installed, Bundler will use them. After installing any needed gems to your system, bundler writes a snapshot of all of the gems and versions that it installed to Gemfile.lock. 
+
+ Checking Your Code into Version Control
+
+After developing your application for a while, check in the application together with the Gemfile and Gemfile.lock snapshot. Now, your repository has a record of the exact versions of all of the gems that you used the last time you know for sure that the application worked. Keep in mind that while your Gemfile lists only three gems (with varying degrees of version strictness), your application depends on dozens of gems, once you take into consideration all of the implicit requirements of the gems you depend on.
+
+This is important: the Gemfile.lock makes your application a single package of both your own code and the third-party code it ran the last time you know for sure that everything worked. Specifying exact versions of the third-party code you depend on in your Gemfile would not provide the same guarantee, because gems usually declare a range of versions for their dependencies.
+
+The next time you run bundle install on the same machine, bundler will see that it already has all of the dependencies you need, and skip the installation process.
+
+Do not check in the .bundle directory, or any of the files inside it. Those files are specific to each particular machine, and are used to persist installation options between runs of the bundle install command. 
+
+#####################################################
+Bundler is a Gem manager which provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.
+
+Gemfile and Gemfile.lock are primary products given by Bundler gem (Bundler itself is a gem).
+
+Gemfile contains your project dependency on gem(s), that you manually mention with version(s) specified, but those gem(s) inturn depends on other gem(s) which is resolved by bundler automatically.
+
+Gemfile.lock contain complete snapshot of all the gem(s) in Gemfile along with there associated dependency.
+
+When you first call bundle install, it will create this Gemfile.lock and uses this file in all subsequent calls to bundle install, which ensures that you have all the dependencies installed and will skip dependency installation.
+
+
+Same happens when you share your code with different machines
+
+You share your Gemfile.lock along with Gemfile, when you run bundle install on other machine it will refer to your Gemfile.lock and skip dependency resolution step, instead it will install all of the same dependent gem(s) that you used on the original machine, which maintains consistency across multiple machines
+
+#########################################

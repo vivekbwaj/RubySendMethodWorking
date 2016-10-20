@@ -1,0 +1,170 @@
+cucumber features\ActivateTGSVenueProduct.feature -p debug -p SFSITD
+cucumber features\vivekfeature1.feature -p debug -p SFSITD
+# Run from folder where features folder is located
+
+
+if(theBrowser.windows.count == 2)
+	closePopupWindow
+else
+	theBrowser.windows.last.use
+end
+
+TestRun.log.info "The Expected Nodes found is: #{expectedNodes}"
+
+
+	if(productType == "TGS")
+		theElement("EditTGSStatus", "VenueProduct").select status
+	elsif (productType == "Keno")
+		theElement("EditKenoStatus", "VenueProduct").select status
+	end
+
+raise "Unable to Edit BDM Field" if(!theElement("Keno_EditBDM", "VenueProduct").present?)
+expect(theBrowser.table(:class=>"detailList",:index=>0).tbody.tr.td(:index=>3).span.exists?).to eql (false)
+
+""" - Multiple lines commenting
+
+
+
+CHROME - hooks.rb
+chromedriver_path=File.expand_path('../../driverDependencies/chromedriver.exe', File.dirname(__FILE__))
+profile = Selenium::WebDriver::Chrome::Profile.new
+#profile.native_events = false
+browser = Watir::Browser.new :chrome, :switches => %w[--disable-popup-blocking]
+
+FIREFOX - hooks.rb
+profile = Selenium::WebDriver::Firefox::Profile.new
+profile.native_events = false
+browser = Watir::Browser.new :firefox, :profile => profile
+
+Ruby Strings
+$aname = vpname[0..-6]
+$productType = vpname[-4..-1]
+$opname = vpname + " Opportunity"
+
+Ruby Date Format
+d = DateTime.now+1
+d = DateTime.now+0.04166666666667
+d.strftime("%d/%m/%Y %I:%M %p")
+d.strftime("%d/%m/%Y")
+d.strftime("%I:%M %p")
+d.strftime("%-I:%M %p")
+onElement("Edit_DueDate", "set", d.strftime("%d/%m/%Y"), "Task")
+
+Ruby Actions on Page Elements
+theElement("ElementName", "Pagekey").select "Value"
+theElement("ElementName", "Pagekey").select Variable
+onElement("ElementName", "set", "Value", "Pagekey")
+onElement("ElementName", "set", Variable, "Pagekey")
+
+Cucumber Step Declarations
+Name.feature
+ @girish # This is a tag
+ Scenario: Text
+    Given type anything 'pass value'
+    When type anything 'passvalue' and 'passvalue'
+    And type anything 'pass value'
+    Then type anything 'pass value'
+    But type anything 'pass value'
+
+Ruby Step Definitions
+Name.rb
+When (/^type anything '([^"]*)' and '([^"]*)'$/) do |Variable1,Variable2|
+	theElement("ElementName", "Pagekey").select Variable
+	onElement("ElementName", "set", "Value", "Pagekey")
+	theElement("ElementName", "Pagekey").click #### theBrowser.a(:text=>"AutomationVL - Entitlements").click
+	expect(theElement("ElementName", "Pagekey").present?).to eql (true)
+	theElement("ElementName", "Pagekey").text == Variable
+	sleep(3)
+end
+
+######################################################################################################################
+WATIR Page Object Definition in pageObject.yml
+######################################################################################################################
+
+VenueProductID: {Selector: "{:id=>theBrowser.table(:class=>\"detailList\",:index=>0).tbody.tr.td(:class=>\"dataCol col02\").input.id}", Type: text_field}
+Opportunities_FirstOpportunityName: {Selector: "{:href=>theBrowser.div(:class=>\"listRelatedObject opportunityBlock\").div.form.div(:class=>\"pbBody\").table.tbody.tr(:index=>1).th.a.href[-16..-1]}", Type: link}
+NewVenueInsight: {Selector: "{:title=>'New Venue Insight'}", Type: link}
+Logout: {Selector: "{:href=>'/secur/logout.jsp'}", Type: link}
+Go: {Selector: "{:name=>'go'}", Type: button}
+Contacts_NewContact: {Selector: "{:value=>'New Contact'}", Type: button}
+Name: {Selector: "{:id=>'Name'}", Type: text_field}
+VenueProductsLink: {Selector: "{:class=>'listTitle'}", Type: span}
+  PageType: {Selector: "{:class=>'pageType'}", Type: h1}
+  pageDescription: {Selector: "{:class=>'pageDescription'}", Type: h2}
+Loyalty: {Selector: "{:id=>theBrowser.div(:class=>\"quickActionFieldElement\",:index=>8).input.id}", Type: checkbox}
+Notes: {Selector: "{:id=>theBrowser.div(:class=>\"quickActionFieldElement\",:index=>14).textarea.id}", Type: textarea}
+TaskRecordType: {Selector: "{:id=>'p3'}", Type: select_list}
+RateOfImpact: {Selector: "{:id=>theBrowser.table(:class=>\"detailList\",:index=>4).tbody.tr(:index=>0).td(:index=>1).div.id}", Type: div}
+
+Use Sublime as Editor
+
+######################################################################################################################
+How to setup Ruby Cucumber
+######################################################################################################################
+
+Go to the Ruby Installer page at http://rubyinstaller.org/downloads/
+
+Click on the link to download "Ruby 2.0.0 (x64)" ** Don't install Ruby versions after 2.0 at present due to a problem with Cucumber libraries at present **
+
+Install it in the default location on your PC (C:\Ruby200-x64)
+•select "Add Ruby executables to your path" and "Associate .rb and .rbw files with this Ruby Installation"
+
+Run "ruby -v" to confirm Ruby is installed correctly
+
+Next step is to install the Ruby DevKit Scroll down on the Ruby Installer page and download the Development Kit version for Ruby 2.0 (64 bit version)
+
+Install instructions are at https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
+•double click on the DevKit file you just downloaded (which will be named something like DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe)
+•it will prompt you for somewhere to unpack itself; pick something like "C:\RubyDevKit"
+•once the file has unpacked, bring up a command shell
+•cd \RubyDevKit
+•ruby dk.rb init
+•ruby dk.rb install
+
+That should install the Ruby DevKit
+
+Next you'll want to install the Cucumber Ruby gems, using same command shell, do following steps
+•gem install bundler
+
+Go to the gem file folder (i.e. C:\git\coresys-auto-keno-kdshost)
+•bundle install
+
+Install support for colored output on Windows (Optional but recommended)
+•follow instructions on http://qastuffs.blogspot.com.au/2011/02/how-to-install-ansicon-for-cucumber-to.html 
+
+That's all! Run cucumber on command shell and it should work fine "cucumber features\0100_KDSH_REGR_CreatePackage.feature -p htmlrpt -p nsw_kds"
+
+######################################################################################################################
+
+Defining Steps inside Steps in Cucumber
+
+######################################################################################################################
+
+When (/^the user clicks '([^"]*)' dashboard on '([^"]*)' page$/) do |dtype, dname|
+  step "the user clicks on link \'#{dname}\'"
+  step "wait"
+  step "the user clicks on link \'Campaign Results\'"
+  step "the user clicks \'Refresh\' button on \'Dashboards\' page"
+  step "wait"
+  step "the user clicks \'#{dtype}\' link on \'Dashboards\' page"
+end
+
+######################################################################################################################
+
+User 1: OTM Team Member User
+User 2: OTM Senior Team Member User
+User 3: OTM Team Leader User
+User 4: OTM Call Centre Manager User
+User 5: OTM Campaign Manager User
+
+######################################################################################################################
+
+Accessing Frame Objects - Most important thing in accessing frame objects is to mention "iframe" in the path.
+
+theBrowser.iframe(:index=>0).select(:name=>"fcf").select "OptionName"
+
+######################################################################################################################
+
+WATIR Web Elements Support Page
+
+http://pettichord.com/watirtutorial/docs/watir_cheat_sheet/WTR/Methods%20supported%20by%20Element.html

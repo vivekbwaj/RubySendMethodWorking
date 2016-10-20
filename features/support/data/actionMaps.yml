@@ -1,0 +1,12 @@
+
+# Buttons/Links
+click: click
+clicks: click
+
+# TextBoxes/TextAreas
+fill: set
+fills: set
+set: set
+sets: set
+enter: set
+enters: set

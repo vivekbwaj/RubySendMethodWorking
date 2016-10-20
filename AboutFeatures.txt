@@ -1,0 +1,17 @@
+Feature file contains Scenario Outline Examples. the description of the columns is as below:
+1)title: Supply title of each page in the website, the same name should be given to the excel worksheets
+2)pageSourceURL: 			
+	$sourceURL="view-source:https://dhhsvic.service-now.com/ramp/"
+	$siteURL="https://dhhsvic.service-now.com/ramp/"
+  These global variables contain base url for the source code page and for the landing page of the website. pageSourceURL must be the relative path to the desired pages.
+   
+3)locator: It is the unique identifier for the page, identifies that the page has loaded, enter the HTML locators in pageObjects.yml file under support >data
+
+
+cucumber features\01Test_Framework.feature -p debug -p Portal
+cucumber features\02Test_Framework.feature -p debug -p Portal
+cucumber features\TestAccessibility.feature -p debug -p Portal
+
+
+
+

@@ -1,0 +1,16 @@
+# config/cucumber.yml
+##YAML Template
+---
+<% time_stamp = Time.now.strftime("%d%m%Y_%H%M%S") %>
+<% results_dir = "results/#{time_stamp}" %>
+<% Dir::mkdir(results_dir) if not File.directory?(results_dir) %>
+#cucumber features\create_new_package.feature -f html -o results.html -f pretty
+default: --profile htmlrpt
+htmlrpt: -f html -o <%= results_dir %>/results.html -f pretty RESULTSDIR=<%= results_dir %>
+dryrun: --dry-run
+Portal: URL=www.gmail.com
+
+debug: --profile htmlrpt DEBUG=true
+step_usage: --format usage
+
+bunny_mq: CLOUDAMQP_URL=amqp://ctesdpwt:7UHSd2RkD7Hc2ULD3a6IjdW0jqcoiYQF@jaguar.rmq.cloudamqp.com/ctesdpwt

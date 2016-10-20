@@ -1,0 +1,22 @@
+---
+
+# space between name: value is necessary
+
+Portal:
+  TextfieldUname: {Selector: "{:id=>'Email'}", Type: text_field}
+  Password: {Selector: "{:id=>'user_password'}", Type: text_field}
+  Login: {Selector: "{:id=>'sysverb_login'}", Type: button}
+  SourceField: {Selector: "{:id=>'source'}", Type: textarea}
+  CodeSniffer: {Selector: "{:id=>'run-button'}", Type: button}
+  SnifferPageIdentifier: {Selector: "{:id=>'code-overlay'}", Type: div} 
+  Logout: {Selector: "{:text=>'Log out'}", Type: link}
+  Results: {Selector: "{:text=>'Test results'}", Type: h3}
+  WelcomePage: {Selector: "{:text=>'Welcome to the RAMP Referral Portal'}", Type: h2}
+  NewReferral: {Selector: "{:text=>'Make a new referral'}", Type: h2}
+  NewReferralFrame: {Selector: "{:class=>'navbar-header'}", Type: div}
+  ListReferral: {Selector: "{:text=>'List my draft referrals'}", Type: h2}
+  ListReferralFrame: {Selector: "{:class=>'navbar-header'}", Type: div}
+  
+
+  
+
